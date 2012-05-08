@@ -18,7 +18,7 @@ import javax.swing.JPanel;
 public class Spielfeld {
 
 	public static void main(String[] args) {
-		JFrame frame= new JFrame("BorderLayout Frame");
+		JFrame frame= new JFrame("Bomberman");
 		JPanel pa= new JPanel();
 		JPanel pa2= new JPanel();
 		JPanel pa3 = new JPanel();
