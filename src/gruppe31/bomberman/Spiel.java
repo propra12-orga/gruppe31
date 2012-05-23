@@ -77,7 +77,7 @@ public class Spiel extends JFrame implements KeyListener, ActionListener {
 
 
 
-		//Positionen (0,0),(0,1),(1,0),(1,1),(2,0),(2,1) freigelassen
+		//Positionen (0,0),(0,1),(1,0),(1,1),(2,0),(2,1) für Eingang und Ausgang freigelassen
 		cell[0][0].setIcon(null);
 		cell[0][1].setIcon(null);
 		cell[1][0].setIcon(null);
@@ -177,6 +177,7 @@ public class Spiel extends JFrame implements KeyListener, ActionListener {
 		 // Timer für das Bombe gestartet und die Hintergrundbild als playerAndBombIcon geändert
 			
 			cell[playerPositionX][playerPositionY].setIcon(playerAndBombIcon);
+			// Boolean wird als true gesetzt, damit die Spieler nicht zweite Bombe anlegen kann.
 			isBombInPlayground = true;
 			bombPositionX = playerPositionX;
 			bombPositionY = playerPositionY;
@@ -187,7 +188,9 @@ public class Spiel extends JFrame implements KeyListener, ActionListener {
     // Die Methode actionPerformed implementieren
 	public void actionPerformed(ActionEvent e) {
 		System.out.println(" Inside action Performed in the Timer");
+		// Methode explodeBomb aufgeruft
 		explodeBomb();
+		// Boolean wird wieder als false geändert 
 		isBombInPlayground = false;
 		bombPositionX = 0;
 		bombPositionY = 0;
@@ -238,7 +241,7 @@ public class Spiel extends JFrame implements KeyListener, ActionListener {
 		}
 	}
 
-    // Methode KeyReleased und KeyTyped explizit nicht benutzt
+    // Methode KeyReleased und KeyTyped mit Absicht werden nicht benutzt
 	public void keyReleased(KeyEvent e) {
 	}
 
@@ -246,7 +249,7 @@ public class Spiel extends JFrame implements KeyListener, ActionListener {
 	}
 	
 	public static void main(String[] args) {
-		// Objekt erzeugen
+		// Objekt erzeugt
 		Spiel spiel = new Spiel();
 	}
 }
