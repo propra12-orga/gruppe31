@@ -1,6 +1,5 @@
 package gruppe31.bomberman;
 
-
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -16,7 +15,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-public class Spielfeld extends JFrame implements KeyListener, ActionListener {
+// Interface KeyListener und ActionListener implementieren 
+public class Spiel extends JFrame implements KeyListener, ActionListener {
 
 	public boolean[][] isBrickCell = new boolean[20][20]; 
 	public JLabel[][] cell = new JLabel[20][20];
@@ -24,7 +24,7 @@ public class Spielfeld extends JFrame implements KeyListener, ActionListener {
 	int playerPositionY = 0;
 	int bombPositionX = 0;
 	int bombPositionY = 0;
-
+    // Bilder eingefügt
 	ImageIcon playerIcon = new ImageIcon(this.getClass().getResource("player.jpg"));
 	ImageIcon bombIcon = new ImageIcon(this.getClass().getResource("bomb.jpg"));
 	ImageIcon playerAndBombIcon = new ImageIcon(this.getClass().getResource("playerAndBomb.jpg"));
@@ -32,26 +32,28 @@ public class Spielfeld extends JFrame implements KeyListener, ActionListener {
 	Timer bombTimer;
 
 
-	public Spielfeld(){
-		//JFrame frame= new JFrame("Bomberman");
-		//frame.addKeyListener(this);
+	public Spiel(){
+		
 		addKeyListener(this);
 		JPanel pa= new JPanel();
 		JPanel pa2= new JPanel();
 		ImageIcon icon2 = new ImageIcon(this.getClass().getResource("brick.jpg"));	
-		//frame.add(pa);
+		//Jpanel eingefügt
 		this.add(pa);
+		// BorderLayout eingefügt
 		pa.setLayout(new BorderLayout());
 		pa.add(new JButton(""),BorderLayout.NORTH);
 		pa.add(new JButton(""), BorderLayout.EAST);
 		pa.add(new JButton(""), BorderLayout.WEST);
 		pa.add(new JButton(""),BorderLayout.SOUTH);
+		// GridLayout in der mittlere Feld von BorderLayout eingefügt
 		pa2.setLayout(new GridLayout(20, 20));
 
 		for(int i = 0; i < 20; i++) {
 			for(int j = 0; j < 20; j++) {
 				JLabel l = new JLabel();
 				cell[i][j] = l;
+				// 2 mal Randomnummer generiert und Mauer-Bild eingefügt und die Boolean als true geändert
 				Random generator = new Random();
 				int random1 = generator.nextInt(20);
 				int random2 = generator.nextInt(20);
@@ -68,16 +70,14 @@ public class Spielfeld extends JFrame implements KeyListener, ActionListener {
 			}
 		}
 		pa.add(pa2,BorderLayout.CENTER);
-		//	frame.setSize(300,300);
-		//	frame.setVisible(true);
-		//	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		// JFrame Eigenschaften 
 		this.setSize(300,300);
 		this.setVisible(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 
 
-		//Keep (0,0) (0,1) (1,0) (1,1) (2,0) (2,1) free of bricks 
+		//Positionen (0,0),(0,1),(1,0),(1,1),(2,0),(2,1) für Eingang und Ausgang freigelassen
 		cell[0][0].setIcon(null);
 		cell[0][1].setIcon(null);
 		cell[1][0].setIcon(null);
@@ -91,21 +91,21 @@ public class Spielfeld extends JFrame implements KeyListener, ActionListener {
 		isBrickCell[2][0] = false;
 		isBrickCell[2][1] = false;
 
-		//Position the player in 0,0
+		//Position der Spieler in (0,0) beginnen
 		cell[0][0].setIcon(playerIcon);
 		this.setFocusable(true);
 
 	}
 
-	public static void main(String[] args) {
-		Spielfeld spielfeld = new Spielfeld();
-	}
-
+    // Methode KeyPressed implementieren
 	public void keyPressed(KeyEvent e) {
 		int keyCode = e.getKeyCode();
+		
 		if (keyCode == KeyEvent.VK_LEFT || keyCode == KeyEvent.VK_KP_LEFT) {
-			System.out.println("left key");
-			System.out.println("Current Player Position: " + playerPositionX + "," + playerPositionY);
+			// linken Seite Bewegung
+		/* Position der Spieler zu linken Seite ändern und aktuelle Hintergrundbild als null setzen
+		 * mit Voraussetzung: keine Mauer, nicht die Grenze von Spielfeld.Bomb Icon werden auch angelegt,
+		 * wenn in der jetzigen Position playerandbomb icon schon vorhanden ist.*/	
 			if (playerPositionY >= 1 && !isBrickCell[playerPositionX][playerPositionY - 1]) {
 				if (playerAndBombIcon.equals(cell[playerPositionX][playerPositionY].getIcon())) {
 					cell[playerPositionX][playerPositionY].setIcon(bombIcon);
@@ -121,8 +121,8 @@ public class Spielfeld extends JFrame implements KeyListener, ActionListener {
 				}
 			}
 		} else if ((keyCode == KeyEvent.VK_RIGHT || keyCode == KeyEvent.VK_KP_RIGHT)) {
-			System.out.println("right key");
-			System.out.println("Current Player Position: " + playerPositionX + "," + playerPositionY);
+			// rechten Seite Bewegung
+			
 			if (playerPositionY <= 18 && !isBrickCell[playerPositionX][playerPositionY + 1]) {
 				if (playerAndBombIcon.equals(cell[playerPositionX][playerPositionY].getIcon())) {
 					cell[playerPositionX][playerPositionY].setIcon(bombIcon);
@@ -139,8 +139,8 @@ public class Spielfeld extends JFrame implements KeyListener, ActionListener {
 			}
 
 		}else if ((keyCode == KeyEvent.VK_UP || keyCode == KeyEvent.VK_KP_UP)) {
-			System.out.println("up key");
-			System.out.println("Current Player Position: " + playerPositionX + "," + playerPositionY);
+			// Bewegung in der obere Richtung
+			
 			if (playerPositionX >= 1 && !isBrickCell[playerPositionX - 1][playerPositionY]) {
 				if (playerAndBombIcon.equals(cell[playerPositionX][playerPositionY].getIcon())) {
 					cell[playerPositionX][playerPositionY].setIcon(bombIcon);
@@ -157,8 +157,8 @@ public class Spielfeld extends JFrame implements KeyListener, ActionListener {
 			}
 
 		}else if ((keyCode == KeyEvent.VK_DOWN || keyCode == KeyEvent.VK_KP_DOWN)) {
-			System.out.println("down");
-			System.out.println("Current Player Position: " + playerPositionX + "," + playerPositionY);
+			// Bewegung in der untere Richtung
+			
 			if (playerPositionX <= 18 && !isBrickCell[playerPositionX + 1][playerPositionY]) {
 				if (playerAndBombIcon.equals(cell[playerPositionX][playerPositionY].getIcon())) {
 					cell[playerPositionX][playerPositionY].setIcon(bombIcon);
@@ -174,32 +174,33 @@ public class Spielfeld extends JFrame implements KeyListener, ActionListener {
 				}
 			}
 		} else if (keyCode == KeyEvent.VK_SPACE && isBombInPlayground == false) {
-			System.out.println("space bar");
-			System.out.println("Bomb Position: " + playerPositionX + "," + playerPositionY);
+		 // Timer für das Bombe gestartet und die Hintergrundbild als playerAndBombIcon geändert
+			
 			cell[playerPositionX][playerPositionY].setIcon(playerAndBombIcon);
+			// Boolean wird als true gesetzt, damit die Spieler nicht zweite Bombe anlegen kann.
 			isBombInPlayground = true;
 			bombPositionX = playerPositionX;
 			bombPositionY = playerPositionY;
-			bombTimer = new Timer(3000, this);
+			bombTimer = new Timer(2000, this);
 			bombTimer.start();
 		}
 	}
-
+    // Die Methode actionPerformed implementieren
 	public void actionPerformed(ActionEvent e) {
 		System.out.println(" Inside action Performed in the Timer");
+		// Methode explodeBomb aufgeruft
 		explodeBomb();
+		// Boolean wird wieder als false geändert 
 		isBombInPlayground = false;
 		bombPositionX = 0;
 		bombPositionY = 0;
+		// Timer für Bombe gestoppt
 		bombTimer.stop();
 	}
 
 	public void explodeBomb() {
-		//(x-1,y-1),(x-1, y),(x-1, y+1) 
-		//(x, y-1),(x,y),(x, y+1)
-		//(x+1, y-1), (x+1, y),(x+1,y+1)
-
-		//Reihe x-1
+		// die Umgebung von der Bomben Position werden null gesetzt und boolean als False geändert
+		//Positionen (x-1,y-1),(x-1,y),(x-1,y+1)
 		if (bombPositionX - 1 >= 0) {
 			if (bombPositionY - 1 >= 0) {
 				cell[bombPositionX -1][bombPositionY -1].setIcon(null);
@@ -213,7 +214,7 @@ public class Spielfeld extends JFrame implements KeyListener, ActionListener {
 			}
 		}
 
-		//Reihe x
+		//Positionen (x,y-1),(x,y),(x,y+1)
 		if (bombPositionY - 1 >= 0) {
 			cell[bombPositionX][bombPositionY -1].setIcon(null);
 			isBrickCell[bombPositionX][bombPositionY -1] = false;
@@ -225,7 +226,7 @@ public class Spielfeld extends JFrame implements KeyListener, ActionListener {
 			isBrickCell[bombPositionX][bombPositionY + 1] = false;
 		}
 
-		//Reihe x-1
+		//Positionen(x+1,y-1),(x+1,y),(x+1,y+1)
 		if (bombPositionX + 1 <= 19) {
 			if (bombPositionY - 1 >= 0) {
 				cell[bombPositionX + 1][bombPositionY -1].setIcon(null);
@@ -240,12 +241,16 @@ public class Spielfeld extends JFrame implements KeyListener, ActionListener {
 		}
 	}
 
-
-
+    // Methode KeyReleased und KeyTyped mit Absicht werden nicht benutzt
 	public void keyReleased(KeyEvent e) {
 	}
 
 	public void keyTyped(KeyEvent arg0) {
+	}
+	
+	public static void main(String[] args) {
+		// Objekt erzeugt
+		Spiel spiel = new Spiel();
 	}
 }
 
