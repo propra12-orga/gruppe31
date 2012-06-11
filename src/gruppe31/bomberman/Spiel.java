@@ -7,6 +7,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 import javax.swing.ImageIcon;
@@ -27,8 +30,9 @@ public class Spiel extends JFrame implements KeyListener, ActionListener {
 	public JLabel[][] cell = new JLabel[20][20];
 	int playerPositionX = 0;
 	int playerPositionY = 0;
-	int bombPositionX = 0;
-	int bombPositionY = 0;
+	List bombList = new ArrayList();
+	boolean isBombTimerStarted = false;
+	long lastBombPlacedTime = 0;
 	int exitPositionX = 0;
 	int exitPositionY = 0;
 	
@@ -39,7 +43,7 @@ public class Spiel extends JFrame implements KeyListener, ActionListener {
 	ImageIcon exitIcon = new ImageIcon(this.getClass().getResource("exit.jpeg"));
 	ImageIcon breakableBrickIcon = new ImageIcon(this.getClass().getResource("breakableWall.jpg"));
 	ImageIcon unbreakableBrickIcon = new ImageIcon(this.getClass().getResource("unbreakableWall.jpg"));
-	boolean isBombInPlayground = false;
+	//boolean isBombInPlayground = false;
 	Timer bombTimer;
 
 	Spiel spiel = null;
@@ -241,15 +245,20 @@ public class Spiel extends JFrame implements KeyListener, ActionListener {
 					cell[playerPositionX][playerPositionY].setIcon(playerIcon);
 				}
 			}
-		} else if (keyCode == KeyEvent.VK_SPACE && isBombInPlayground == false) {
+		} else if (keyCode == KeyEvent.VK_SPACE) {
 			System.out.println("space bar");
 			System.out.println("Bomb Position: " + playerPositionX + "," + playerPositionY);
 			cell[playerPositionX][playerPositionY].setIcon(playerAndBombIcon);
-			isBombInPlayground = true;
-			bombPositionX = playerPositionX;
-			bombPositionY = playerPositionY;
-			bombTimer = new Timer(3000, this);
-			bombTimer.start();
+			BombPosition bombPosition = new BombPosition();
+			bombPosition.setPositionX(playerPositionX);
+			bombPosition.setPositionY(playerPositionY);
+			bombList.add(bombPosition);
+			lastBombPlacedTime = new java.util.Date().getTime();
+			//if (!isBombTimerStarted) {
+				//isBombTimerStarted = true;
+				bombTimer = new Timer(3000, this);
+				bombTimer.restart();
+			//}
 		}
 		exitDoorAction();
 	}
@@ -265,52 +274,59 @@ public class Spiel extends JFrame implements KeyListener, ActionListener {
 		} else {
 			System.out.println(" Inside action Performed in the Timer");
 			explodeBomb();
-			isBombInPlayground = false;
-			bombPositionX = 0;
-			bombPositionY = 0;
-			bombTimer.stop();
+			isBombTimerStarted = false;
+			//bombList = new ArrayList();
+			//bombPositionX = 0;
+			//bombPositionY = 0;
+			//bombTimer.stop();
 		}
 	}
 
 	
 	public void explodeBomb() {
-		//Reihe x-1
-		if (bombPositionX - 1 >= 0) {
-			if (bombPositionY - 1 >= 0) {
-				clearCellIfBreakable(bombPositionX - 1, bombPositionY -1);
+		
+		if (bombList != null && bombList.size() <= 1 && new Date().getTime() - lastBombPlacedTime < 3000) {
+			bombTimer.restart();
+		} else if (bombList != null && bombList.size() > 0) {
+			BombPosition bombPosition = (BombPosition) bombList.get(0);
+			int bombPositionX = bombPosition.getPositionX();
+			int bombPositionY = bombPosition.getPositionY();
+			bombList.remove(0);
+			//Reihe x-1
+			if (bombPositionX - 1 >= 0) {
+				if (bombPositionY - 1 >= 0) {
+					clearCellIfBreakable(bombPositionX - 1, bombPositionY -1);
+				}
+				clearCellIfBreakable(bombPositionX - 1, bombPositionY);
+				if (bombPositionY + 1 <= 19) {
+					clearCellIfBreakable(bombPositionX - 1, bombPositionY + 1);
+				}
 			}
-			clearCellIfBreakable(bombPositionX - 1, bombPositionY);
-			if (bombPositionY + 1 <= 19) {
-				clearCellIfBreakable(bombPositionX - 1, bombPositionY + 1);
-			}
-		}
 
-		//Reihe x
-		if (bombPositionY - 1 >= 0) {
-			clearCellIfBreakable(bombPositionX, bombPositionY - 1);
-		}
-		clearCellIfBreakable(bombPositionX, bombPositionY);
-		if (bombPositionY + 1 <= 19) {
-			clearCellIfBreakable(bombPositionX, bombPositionY + 1);
-		}
-
-		//Reihe x-1
-		if (bombPositionX + 1 <= 19) {
+			//Reihe x
 			if (bombPositionY - 1 >= 0) {
-				clearCellIfBreakable(bombPositionX + 1, bombPositionY - 1);
+				clearCellIfBreakable(bombPositionX, bombPositionY - 1);
 			}
-			clearCellIfBreakable(bombPositionX + 1, bombPositionY);
+			clearCellIfBreakable(bombPositionX, bombPositionY);
 			if (bombPositionY + 1 <= 19) {
-				clearCellIfBreakable(bombPositionX + 1, bombPositionY + 1);
+				clearCellIfBreakable(bombPositionX, bombPositionY + 1);
+			}
+
+			//Reihe x-1
+			if (bombPositionX + 1 <= 19) {
+				if (bombPositionY - 1 >= 0) {
+					clearCellIfBreakable(bombPositionX + 1, bombPositionY - 1);
+				}
+				clearCellIfBreakable(bombPositionX + 1, bombPositionY);
+				if (bombPositionY + 1 <= 19) {
+					clearCellIfBreakable(bombPositionX + 1, bombPositionY + 1);
+				}
 			}
 		}
+		//bombTimer.restart();
 	}
 
-	/**
-	 * clear the cell x,y of bricks (if it is breakable brick).
-	 * @param x
-	 * @param y
-	 */
+	
 	public void clearCellIfBreakable(int x, int y) {
 		restartIfPlayerOnBombField(x, y);
 		//wenn es ein Ausgangstür position ist
@@ -329,11 +345,7 @@ public class Spiel extends JFrame implements KeyListener, ActionListener {
 			isBreakableBrickCell[x][y] = false;
 		}
 	}
-	/**
-	 * Restart the game if player is in the Cell x, y when the bomb explodes.
-	 * @param x
-	 * @param y
-	 */
+	
 	public void restartIfPlayerOnBombField(int x, int y) {
 		if (playerIcon.equals(cell[x][y].getIcon()) || playerAndBombIcon.equals(cell[x][y].getIcon())) {
 			JOptionPane.showMessageDialog(this,"Player Dead. Game Over. Restarting...");
@@ -343,13 +355,7 @@ public class Spiel extends JFrame implements KeyListener, ActionListener {
 		}
 	}
 
-	/**
-	 * Check if a cell is free of bricks
-	 * @param x
-	 * @param y
-	 * @return true, if the cell is free from Brick,
-	 *         false, otherwise
-	 */
+	
 	public boolean isCellFreeFromBricks(int x, int y) {
 		if (!isBreakableBrickCell[x][y] && !isUnbreakableBrickCell[x][y]) {
 			return true;
