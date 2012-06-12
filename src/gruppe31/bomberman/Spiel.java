@@ -440,8 +440,8 @@ public class Spiel extends JFrame implements KeyListener, ActionListener {
 	 * Diese Methode überprüft, ob der Icon ,playerIcon / playerAndBombIcon ist und gibt die Nachricht 
 	 * "Player Dead.Game Over.Restarting..." aus. Eine neue Objekt wird erzeugt und die Methode initialiseSpiel()
 	 * wird aufgerufen, damit ein neues Spiel beginnt.
-	 * @param x:Reihe der JLabelarray
-	 * @param y:Spalte der JLabelarray
+	 * @param x Reihe der JLabelarray
+	 * @param y Spalte der JLabelarray
 	 */
 	public void restartIfPlayerOnBombField(int x, int y) {
 		// informiert dass der Speiler tot ist und wird das Spiel neue gestartet.
@@ -456,10 +456,9 @@ public class Spiel extends JFrame implements KeyListener, ActionListener {
 	/**
 	 * Diese Methode überprüft, ob der boolean isBreakableBrickCell und isUnbreakableBrickCell 
 	 * in x,y false ist 
-	 * @param x: Reihe der Booleanarray
-	 * @param y: Spalten der Booleanarray
-	 * @return true: wenn beide boolean false sind
-	 * @return false: wenn beide boolean nicht false sind.
+	 * @param x Reihe der Booleanarray
+	 * @param y Spalten der Booleanarray
+	 * @return true wenn
 	 */
 	public boolean isCellFreeFromBricks(int x, int y) {
 		//überprüft ob der Zell frei ist und gibt true züruck, sonst wird false züruckgegeben.
