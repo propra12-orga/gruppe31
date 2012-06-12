@@ -24,11 +24,15 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+<<<<<<< HEAD
 /**
  * @author gruppe 31-Bomberman
  * Diese Klass Spiel erweitert JFrame und implementiert 2 Interface KeyListener und ActionListener
  *
  */
+=======
+
+>>>>>>> 33f23ab5ff55fcdc77f61a1fe5e4cf5ca0dc1364
 public class Spiel extends JFrame implements KeyListener, ActionListener {
 
 	public boolean[][] isBreakableBrickCell = new boolean[20][20];
@@ -56,7 +60,10 @@ public class Spiel extends JFrame implements KeyListener, ActionListener {
 	Spiel spiel = null;
 
 	JPanel spielStatusPanel = new JPanel();
+<<<<<<< HEAD
 	//Default playerMode und gameLevel ist Single Player und 1
+=======
+>>>>>>> 33f23ab5ff55fcdc77f61a1fe5e4cf5ca0dc1364
 	JLabel playerMode = new JLabel("Single Player");
 	JLabel gameLevel = new JLabel("1");
 	
@@ -64,6 +71,7 @@ public class Spiel extends JFrame implements KeyListener, ActionListener {
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Diese konstruktor initializiert neue Spielfeld mit ihre komponente wie Menu, Layout, JLabel, uw.
 	 * In einer JFrame wird eine Panel mit BorderLayout eingefügt.In der Nord Teile der Flowlayout
 	 * wird eine Panel mit der Rechts gestellte FlowLayout und 4 JLabel für Spieler Modus und Spielstatus.
@@ -73,6 +81,8 @@ public class Spiel extends JFrame implements KeyListener, ActionListener {
 	 * mit Absicht freigelassen,damit der 1.Speiler in position (0,0) beginnen kann.
 	 * Falls playermode multiple Player ist, erscheint 2.Spieler in (19,0)....
 	 * PlaceExitDoor methode wird aufgerufen.
+=======
+>>>>>>> 33f23ab5ff55fcdc77f61a1fe5e4cf5ca0dc1364
 	 * 
 	 */
 	public void initaliseSpiel() {
@@ -83,7 +93,10 @@ public class Spiel extends JFrame implements KeyListener, ActionListener {
 		this.add(pa);
 		// BorderLayout 
 		pa.setLayout(new BorderLayout());
+<<<<<<< HEAD
 		// Panel mit der Rechts gestellte FlowLayout und JLabel
+=======
+>>>>>>> 33f23ab5ff55fcdc77f61a1fe5e4cf5ca0dc1364
 		spielStatusPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 25, 25));
 		spielStatusPanel.add(new JLabel("Player Mode:"));
 		spielStatusPanel.add(playerMode);
@@ -159,7 +172,11 @@ public class Spiel extends JFrame implements KeyListener, ActionListener {
 		JMenu menu = new JMenu("Bomberman");
 		menuBar.add(menu);
 
+<<<<<<< HEAD
 		 // Menüeinträge für einzelne und mehrfache(2) Spieler  
+=======
+		  
+>>>>>>> 33f23ab5ff55fcdc77f61a1fe5e4cf5ca0dc1364
 		JMenuItem singlePlayer = new JMenuItem("Single Player");
 		singlePlayer.addActionListener(this);
 		menu.add(singlePlayer);
@@ -168,7 +185,11 @@ public class Spiel extends JFrame implements KeyListener, ActionListener {
 		multiPlayer.addActionListener(this);
 		menu.add(multiPlayer);
 		
+<<<<<<< HEAD
 		// Menüeinträge für Spiel wieder anzufangen und zu enden  
+=======
+		// 2 menuitem wird erzeugt mit ActionListener in menu eingefügt  
+>>>>>>> 33f23ab5ff55fcdc77f61a1fe5e4cf5ca0dc1364
 		JMenuItem restart = new JMenuItem("Restart");
 		restart.addActionListener(this);
 		menu.add(restart);
@@ -343,7 +364,10 @@ public class Spiel extends JFrame implements KeyListener, ActionListener {
      */
 	public void actionPerformed(ActionEvent e) {
 		System.out.println(e.getActionCommand());
+<<<<<<< HEAD
 		// Reaktionen für Menueinträge :'Single Player', 'Multiple Player', 'Restart' und 'Exit'
+=======
+>>>>>>> 33f23ab5ff55fcdc77f61a1fe5e4cf5ca0dc1364
 		if (e.getActionCommand() != null && e.getActionCommand().equalsIgnoreCase("Single Player")) {
 			playerMode.setText("Single Player");
 			cell[19][0].setIcon(null);
@@ -371,6 +395,10 @@ public class Spiel extends JFrame implements KeyListener, ActionListener {
     * von aktuelle Position entleert,mit der Methode ClearCellIfBreakable(), die nur die zerstörbare Wände entleert.   
     */
 	public void explodeBomb() {
+<<<<<<< HEAD
+=======
+		
+>>>>>>> 33f23ab5ff55fcdc77f61a1fe5e4cf5ca0dc1364
 		if (bombList != null && bombList.size() <= 1 && new Date().getTime() - lastBombPlacedTime < 3000) {
 			bombTimer.restart();
 		} else if (bombList != null && bombList.size() > 0) {
@@ -413,10 +441,16 @@ public class Spiel extends JFrame implements KeyListener, ActionListener {
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Diese Methode startet die spiel wieder wenn spieler in Bomb position trifft;
 	 * entleert die Zell, wenn die ein zerstörbares Wand Icon hat.
 	 * @param x : Reihe der Array
 	 * @param y : Spalten der Array
+=======
+	 * 
+	 * @param x
+	 * @param y
+>>>>>>> 33f23ab5ff55fcdc77f61a1fe5e4cf5ca0dc1364
 	 */
 	public void clearCellIfBreakable(int x, int y) {
 		restartIfPlayerOnBombField(x, y);
@@ -437,11 +471,17 @@ public class Spiel extends JFrame implements KeyListener, ActionListener {
 		}
 	}
 	/**
+<<<<<<< HEAD
 	 * Diese Methode überprüft, ob der Icon ,playerIcon / playerAndBombIcon ist und gibt die Nachricht 
 	 * "Player Dead.Game Over.Restarting..." aus. Eine neue Objekt wird erzeugt und die Methode initialiseSpiel()
 	 * wird aufgerufen, damit ein neues Spiel beginnt.
 	 * @param x:Reihe der JLabelarray
 	 * @param y:Spalte der JLabelarray
+=======
+	 * 
+	 * @param x
+	 * @param y
+>>>>>>> 33f23ab5ff55fcdc77f61a1fe5e4cf5ca0dc1364
 	 */
 	public void restartIfPlayerOnBombField(int x, int y) {
 		// informiert dass der Speiler tot ist und wird das Spiel neue gestartet.
@@ -454,12 +494,19 @@ public class Spiel extends JFrame implements KeyListener, ActionListener {
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Diese Methode überprüft, ob der boolean isBreakableBrickCell und isUnbreakableBrickCell 
 	 * in x,y false ist 
 	 * @param x: Reihe der Booleanarray
 	 * @param y: Spalten der Booleanarray
 	 * @return true: wenn beide boolean false sind
 	 * @return false: wenn beide boolean nicht false sind.
+=======
+	 * 
+	 * @param x
+	 * @param y
+	 * @
+>>>>>>> 33f23ab5ff55fcdc77f61a1fe5e4cf5ca0dc1364
 	 */
 	public boolean isCellFreeFromBricks(int x, int y) {
 		//überprüft ob der Zell frei ist und gibt true züruck, sonst wird false züruckgegeben.
