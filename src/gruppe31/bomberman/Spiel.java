@@ -1,6 +1,7 @@
 package gruppe31.bomberman;
 
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.awt.Frame;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -23,6 +24,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+
 public class Spiel extends JFrame implements KeyListener, ActionListener {
 
 	public boolean[][] isBreakableBrickCell = new boolean[20][20];
@@ -36,8 +38,9 @@ public class Spiel extends JFrame implements KeyListener, ActionListener {
 	int exitPositionX = 0;
 	int exitPositionY = 0;
 	
-    // Bilder
+	// Bilder
 	ImageIcon playerIcon = new ImageIcon(this.getClass().getResource("player.jpg"));
+	ImageIcon player2Icon = new ImageIcon(this.getClass().getResource("player2.jpg"));
 	ImageIcon bombIcon = new ImageIcon(this.getClass().getResource("bomb.jpg"));
 	ImageIcon playerAndBombIcon = new ImageIcon(this.getClass().getResource("playerAndBomb.jpg"));
 	ImageIcon exitIcon = new ImageIcon(this.getClass().getResource("exit.jpeg"));
@@ -48,9 +51,16 @@ public class Spiel extends JFrame implements KeyListener, ActionListener {
 
 	Spiel spiel = null;
 
+	JPanel spielStatusPanel = new JPanel();
+	JLabel playerMode = new JLabel("Single Player");
+	JLabel gameLevel = new JLabel("1");
+	
 	public Spiel(){
 	}
 
+	/**
+	 * 
+	 */
 	public void initaliseSpiel() {
 		createMenu();
 		addKeyListener(this);
@@ -58,7 +68,13 @@ public class Spiel extends JFrame implements KeyListener, ActionListener {
 		JPanel pa2= new JPanel();
 		this.add(pa);
 		pa.setLayout(new BorderLayout());
-		pa.add(new JButton(""),BorderLayout.NORTH);
+		spielStatusPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 25, 25));
+		spielStatusPanel.add(new JLabel("Player Mode:"));
+		spielStatusPanel.add(playerMode);
+		spielStatusPanel.add(new JLabel("Level:"));
+		spielStatusPanel.add(gameLevel);
+		spielStatusPanel.setVisible(true);
+		pa.add(spielStatusPanel, BorderLayout.NORTH);
 		pa.add(new JButton(""), BorderLayout.EAST);
 		pa.add(new JButton(""), BorderLayout.WEST);
 		pa.add(new JButton(""),BorderLayout.SOUTH);
@@ -107,6 +123,9 @@ public class Spiel extends JFrame implements KeyListener, ActionListener {
 
 		//Position der Spieler in 0,0 zu beginnen
 		cell[0][0].setIcon(playerIcon);
+		if (playerMode.getText().equals("Multiple Player")) {
+			cell[19][0].setIcon(player2Icon);
+		}
 		placeExitDoor();
 		this.setFocusable(true);
 	}
@@ -117,6 +136,15 @@ public class Spiel extends JFrame implements KeyListener, ActionListener {
 		JMenu menu = new JMenu("Bomberman");
 		menuBar.add(menu);
 
+		  
+		JMenuItem singlePlayer = new JMenuItem("Single Player");
+		singlePlayer.addActionListener(this);
+		menu.add(singlePlayer);
+
+		JMenuItem multiPlayer = new JMenuItem("Multi Player");
+		multiPlayer.addActionListener(this);
+		menu.add(multiPlayer);
+		
 		// 2 menuitem wird erzeugt mit ActionListener in menu eingefügt  
 		JMenuItem restart = new JMenuItem("Restart");
 		restart.addActionListener(this);
@@ -261,11 +289,18 @@ public class Spiel extends JFrame implements KeyListener, ActionListener {
 			//}
 		}
 		exitDoorAction();
+		
 	}
 
 	public void actionPerformed(ActionEvent e) {
 		System.out.println(e.getActionCommand());
-		if (e.getActionCommand() != null && e.getActionCommand().equalsIgnoreCase("Restart")) {
+		if (e.getActionCommand() != null && e.getActionCommand().equalsIgnoreCase("Single Player")) {
+			playerMode.setText("Single Player");
+			cell[19][0].setIcon(null);
+		} else if (e.getActionCommand() != null && e.getActionCommand().equalsIgnoreCase("Multi Player")) {
+			playerMode.setText("Multiple Player");
+			cell[19][0].setIcon(player2Icon);
+		} else if (e.getActionCommand() != null && e.getActionCommand().equalsIgnoreCase("Restart")) {
 			this.setVisible(false);
 			spiel = new Spiel();
 			spiel.initaliseSpiel();
@@ -326,7 +361,11 @@ public class Spiel extends JFrame implements KeyListener, ActionListener {
 		//bombTimer.restart();
 	}
 
-	
+	/**
+	 * 
+	 * @param x
+	 * @param y
+	 */
 	public void clearCellIfBreakable(int x, int y) {
 		restartIfPlayerOnBombField(x, y);
 		//wenn es ein Ausgangstür position ist
@@ -345,7 +384,11 @@ public class Spiel extends JFrame implements KeyListener, ActionListener {
 			isBreakableBrickCell[x][y] = false;
 		}
 	}
-	
+	/**
+	 * 
+	 * @param x
+	 * @param y
+	 */
 	public void restartIfPlayerOnBombField(int x, int y) {
 		if (playerIcon.equals(cell[x][y].getIcon()) || playerAndBombIcon.equals(cell[x][y].getIcon())) {
 			JOptionPane.showMessageDialog(this,"Player Dead. Game Over. Restarting...");
@@ -355,7 +398,12 @@ public class Spiel extends JFrame implements KeyListener, ActionListener {
 		}
 	}
 
-	
+	/**
+	 * 
+	 * @param x
+	 * @param y
+	 * @
+	 */
 	public boolean isCellFreeFromBricks(int x, int y) {
 		if (!isBreakableBrickCell[x][y] && !isUnbreakableBrickCell[x][y]) {
 			return true;
