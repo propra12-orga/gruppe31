@@ -26,7 +26,7 @@ import javax.swing.Timer;
 
 /**
  * @author gruppe 31-Bomberman
- * Diese Klass Spiel erweitert JFrame und implementiert 2 Interface KeyListener und ActionListener
+ * Diese Klasse Spiel erweitert JFrame und implementiert 2 Interface KeyListener und ActionListener
  *
  */
 public class Spiel extends JFrame implements KeyListener, ActionListener {
@@ -64,13 +64,13 @@ public class Spiel extends JFrame implements KeyListener, ActionListener {
 	}
 
 	/**
-	 * Diese konstruktor initializiert neue Spielfeld mit ihre komponente wie Menu, Layout, JLabel, uw.
-	 * In einer JFrame wird eine Panel mit BorderLayout eingefügt.In der Nord Teile der Flowlayout
+	 * Diese konstruktor initializiert neue Spielfeld mit seinen komponente wie Menu, Layout, JLabel, uw.
+	 * In einer JFrame wird eine Panel mit BorderLayout eingefügt. In den Nord Teile der Flowlayout
 	 * wird eine Panel mit der Rechts gestellte FlowLayout und 4 JLabel für Spieler Modus und Spielstatus.
-	 * In mittlere Teil von BorderLayout , wird die 20x20 GridLayout eingefügt. Diese Zellen werden auch 
+	 * Im mittleren Teil von BorderLayout , wird die 20x20 GridLayout eingefügt. Diese Zellen werden auch 
 	 * als in 20 x 20 boolean und JLabel gespeichert.zwei Zufallzahlen werden generiert , die zerstörbare 
 	 * und die unzerstörbare Wände werden in der zugehörigen Zellen eingefügt.(0,0) (0,1) (1,0) (1,1) (2,0) (2,1) 
-	 * mit Absicht freigelassen,damit der 1.Speiler in position (0,0) beginnen kann.
+	 * mit Absicht freigelassen, damit der 1.Spieler in Position (0,0) beginnen kann.
 	 * Falls playermode multiple Player ist, erscheint 2.Spieler in (19,0)....
 	 * PlaceExitDoor methode wird aufgerufen.
 	 * 
@@ -118,7 +118,7 @@ public class Spiel extends JFrame implements KeyListener, ActionListener {
 
 			}
 		}
-		// In mittlere Teil von BorderLayout , wird die 20x20 GridLayout eingefügt
+		// In mittleren Teil von BorderLayout , wird die 20x20 GridLayout eingefügt
 		pa.add(pa2,BorderLayout.CENTER);
 		this.setExtendedState(Frame.MAXIMIZED_BOTH);
 		this.setVisible(true);
@@ -207,15 +207,15 @@ public class Spiel extends JFrame implements KeyListener, ActionListener {
 	}
     
 	/**
-	 * rüft die Konstruktor das Spiel zu beginnen.
+	 * ruft den Konstruktor auf um das Spiel zu starten.
 	 */
-	// startGame methode wird definiert für das Spiel anzufangen
+	// startGame methode wird definiert um das Spiel zu starten
 	public void startGame() {
-		this.initaliseSpiel();
+		this.initaliseSpiel(); 
 	}
 	
    /**
-    * überprüft ob der Spieler Position und AusgangstürPosition gleich ist( Reihen und spaltenweise des Arrays) 
+    * überprüft ob die Spieler Position und AusgangstürPosition gleich sind( Reihen und spaltenweise des Arrays) 
     * Falls ja, wird die Nachricht "Game Over. Restarting..." mittels JOptionPanel ausgegeben und
     * neue Objekt wird erzeugt.
     */
@@ -232,10 +232,10 @@ public class Spiel extends JFrame implements KeyListener, ActionListener {
 
 	}
 	/**
-	 *  überprüft ob die zerstörbare und unzerstörbare Wand vorhanden sind, und ob es die Spielfeld Grenze ist.
-	 *  Falls nein, bewegt der Spieler Position ein Zell nach links, rechts, oben oder unten,
-	 *  jenach die Tastatur-Pfeil gedrückt wird.Hier wird die aktuelle Hintergrundbild als null gesetzt.
-	 *  Falls SPACEBAR gedrückt wird, wird die Hintergrund  als playerAndBombIcon geändert und Timer gestartet. 
+	 *  überprüft ob die zerstörbare und unzerstörbare Wände vorhanden sind, und ob es die Spielfeld Grenze ist.
+	 *  Falls nein, bewegt der Spieler die Richtung (nach oben, unten, rechts und links) .Hier wird das aktuelle Hintergrundbild 
+	 * als null gesetzt.
+	 *  Falls SPACEBAR gedrückt wird, wird der Hintergrund  als playerAndBombIcon geändert und Timer gestartet. 
 	 *  
 	 */
 	public void keyPressed(KeyEvent e) {
@@ -244,7 +244,7 @@ public class Spiel extends JFrame implements KeyListener, ActionListener {
 			System.out.println("left key");
 			System.out.println("Current Player Position: " + playerPositionX + "," + playerPositionY);
 			// linken Seite Bewegung
-			/* Position der Spieler zu linken Seite ändern und aktuelle Hintergrundbild als null setzen	
+			/* Position der Spieler zu linken Seite ändern und aktuelles Hintergrundbild als null setzen	
              * mit Voraussetzung: keine Mauer, nicht die Grenze von Spielfeld.*/ 
 			if (playerPositionY >= 1 && isCellFreeFromBricks(playerPositionX, playerPositionY - 1)) {
 				if (playerAndBombIcon.equals(cell[playerPositionX][playerPositionY].getIcon())) {
@@ -336,8 +336,7 @@ public class Spiel extends JFrame implements KeyListener, ActionListener {
 		
 	}
     /**
-     * Hier wird jenach die Menueinträge, die die Benutzer wählt, wird die Spieler Modus und Spiel Status geändert.
-     * Default ist als Single Player eingesetzt.Wenn man Multiplayer klickt, erscheint dann 2.Spieler in 
+     * Default ist als Single Player eingesetzt. Wenn man Multiplayer klickt, erscheint dann 2.Spieler in 
      * [19][0]...
      * Wenn man Restart klickt, wird ein neue Objekt erzeugt und initialiseSpiel() methode aufgerufen.
      * Wenn man Exit klickt, wird das Spiel beendet...
@@ -368,8 +367,8 @@ public class Spiel extends JFrame implements KeyListener, ActionListener {
 		}
 	}
    /**
-    * Hier wird die 9 Umgebung Zellen (reihen und spaltenweise)
-    * von aktuelle Position entleert,mit der Methode ClearCellIfBreakable(), die nur die zerstörbare Wände entleert.   
+    * Hier wird die 9 Umgebung Zellen (Reihen und Spaltenweise)
+    * von aktuelle Position entleert, mit der Methode ClearCellIfBreakable(), die nur die zerstörbare Wände entleert.   
     */
 	public void explodeBomb() {
 		if (bombList != null && bombList.size() <= 1 && new Date().getTime()- lastBombPlacedTime < 3000) {
@@ -414,8 +413,8 @@ public class Spiel extends JFrame implements KeyListener, ActionListener {
 	}
 
 	/**
-	 * Diese Methode startet die spiel wieder wenn spieler in Bomb position trifft;
-	 * entleert die Zell, wenn die ein zerstörbares Wand Icon hat.
+	 * Diese Methode startet das Spiel erneut, wenn Spieler in Bomb position trifft;
+	 * entleert die Zelle, wenn die ein zerstörbares Wand Icon hat.
 	 * @param x : Reihe der Array
 	 * @param y : Spalten der Array
 	 */
