@@ -144,6 +144,7 @@ public class Spiel extends JFrame implements KeyListener, ActionListener {
 		if (playerMode.getText().equals("Multiple Player")) {
 			cell[19][0].setIcon(player2Icon);
 		}
+		// Ausgangstür mit placeExitDoor Methode eingefügt
 		placeExitDoor();
 		this.setFocusable(true);
 	}
@@ -371,7 +372,7 @@ public class Spiel extends JFrame implements KeyListener, ActionListener {
     * von aktuelle Position entleert,mit der Methode ClearCellIfBreakable(), die nur die zerstörbare Wände entleert.   
     */
 	public void explodeBomb() {
-		if (bombList != null && bombList.size() <= 1 && new Date().getTime() - lastBombPlacedTime < 3000) {
+		if (bombList != null && bombList.size() <= 1 && new Date().getTime()- lastBombPlacedTime < 3000) {
 			bombTimer.restart();
 		} else if (bombList != null && bombList.size() > 0) {
 			BombPosition bombPosition = (BombPosition) bombList.get(0);
