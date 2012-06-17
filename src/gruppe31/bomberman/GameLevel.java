@@ -31,7 +31,7 @@ public class GameLevel {
 			DocumentBuilder db = dbf.newDocumentBuilder();
 			Document doc = db.parse(file);
 			doc.getDocumentElement().normalize();
-			NodeList nodeLst = doc.getElementsByTagName("gamelevel");
+			NodeList nodeLst = doc.getElementsByTagName("bomberman");
 			
 			Node fstNode = nodeLst.item(0);
 
