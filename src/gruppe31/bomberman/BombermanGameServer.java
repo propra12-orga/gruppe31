@@ -1,5 +1,9 @@
 
+<<<<<<< HEAD
 package gruppe31.bomberman;
+=======
+//package gruppe31.bomberman;
+>>>>>>> 8c42c91f2ec50a5915702a03c94232c80e1fb40c
 
 import java.io.IOException;
 import java.io.ObjectInputStream;

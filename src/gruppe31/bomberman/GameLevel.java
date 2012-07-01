@@ -1,4 +1,4 @@
-package gruppe31.bomberman;
+//package gruppe31.bomberman;
 
 import java.io.File;
 import java.io.FileNotFoundException;
