@@ -62,7 +62,10 @@ public class Spiel extends JFrame implements KeyListener, ActionListener {
 	JPanel spielStatusPanel = new JPanel();
 	JLabel playerMode = new JLabel("Single Player");
 	JLabel gameLevelLabel = new JLabel("");
-	
+	/**
+	 * 
+	 * @param isMultiPlayerMode 
+	 */
 	public Spiel(boolean isMultiPlayerMode) {
 		this.isMultiPlayerMode = isMultiPlayerMode;
 	}
@@ -75,7 +78,7 @@ public class Spiel extends JFrame implements KeyListener, ActionListener {
 	 * als in 20 x 20 boolean und JLabel gespeichert.zwei Zufallzahlen werden generiert , die zerstörbare 
 	 * und die unzerstörbare Wände werden in der zugehörigen Zellen eingefügt.(0,0) (0,1) (1,0) (1,1) (2,0) (2,1) 
 	 * mit Absicht freigelassen, damit der 1.Spieler in Position (0,0) beginnen kann.
-	 * Falls playermode multiple Player ist, erscheint 2.Spieler in (19,0)....
+	 * Falls playermode multiple Player ist, erscheint 2.Spieler in (19,0).
 	 * PlaceExitDoor methode wird aufgerufen.
 	 * 
 	 */
