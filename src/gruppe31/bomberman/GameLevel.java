@@ -1,4 +1,4 @@
-//package gruppe31.bomberman;
+package gruppe31.bomberman;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -12,12 +12,18 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-
+/**
+ * 
+ * @author gruppe 31 - bomberman
+ * Diese Klasse hat methode, die die aktuelle Status der Spiel und Punkten vom xml Datei einliest 
+ * und in xml Datei einschreibt.
+ *
+ */
 public class GameLevel {
 
 	public static int currentLevel = 0;
 	/**
-	 * liest the aktuelle Status der Spiel von GameLevel.xml ein
+	 * liest die aktuelle Status der Spiel von GameLevel.xml ein
 	 * @return the Spiel Status
 	 */
 	public String readCurrentLevel() {
@@ -51,10 +57,10 @@ public class GameLevel {
 	}
 	
 	/**
-	 * schriebt die aktuelle Status der Spiel in GameLevel.xml. 
+	 * schriebt die aktuelle Status der Spiel und Punkten in GameLevel.xml. 
 	 * @param Status
 	 */
-	public void writeLevelIntoFile(int level) {
+	public void writeLevelIntoFile(int level, int score) {
 		File file = new File("GameLevel.xml");
 		FileOutputStream fos = null;
 		try {
@@ -66,7 +72,10 @@ public class GameLevel {
 		StringBuffer xmlBuffer = new StringBuffer();
 		xmlBuffer.append("<?xml version=\"1.0\"?><bomberman><level>");
 		xmlBuffer.append(Integer.toString(level));
-		xmlBuffer.append("</level></bomberman>");
+		xmlBuffer.append("</level>");
+		xmlBuffer.append("<score>");
+		xmlBuffer.append(Integer.toString(score));
+		xmlBuffer.append("</score></bomberman>");
 		
 		try {
 			fos.write(xmlBuffer.toString().getBytes());

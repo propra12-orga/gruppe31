@@ -1,5 +1,9 @@
 package gruppe31.bomberman;
-
+/**
+ * Die Klasse ist Bombposition zu zugreifen
+ * @author gruppe 31 - bomberman
+ *
+ */
 public class BombPosition {
 
 	private int positionX;

@@ -1,11 +1,13 @@
-//package gruppe31.bomberman;
+package gruppe31.bomberman;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JLabel;
-
+/**
+ * Diese Klass implementiert Interface Serializable und initializiert alle Variablen mit Variablen des Spiel-Objekts
+ */
 public class BombermanSocketMessage implements Serializable {
 
 	Spiel spiel;
@@ -49,7 +51,11 @@ public class BombermanSocketMessage implements Serializable {
 //		msg.startGame = true;
 //		return msg;
 //	}
-	
+	/**
+	 * die Konstruktor, die variablen mit variablen von Spiel objekt initializiert
+	 * @param spiel
+	 * @return msg
+	 */
 	public static BombermanSocketMessage createGameStatusMessage(Spiel spiel) {
 		BombermanSocketMessage msg = new BombermanSocketMessage();
 		msg.isBreakableBrickCell = spiel.isBreakableBrickCell;

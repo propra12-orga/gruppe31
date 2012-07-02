@@ -19,7 +19,9 @@ public class AudioEffects {
 	private URL bgmUrl;
 	private URL bombExplosionUrl;
 	public static Clip bgmClip;
-	
+	/**
+	 * Diese Konstruktor initializiert die variablen .
+	 */
 	public AudioEffects() {
 		bgmUrl = this.getClass().getClassLoader().getResource("bomberman-bgm.wav");
 		bombExplosionUrl = this.getClass().getClassLoader().getResource("bomb.wav");
@@ -62,7 +64,7 @@ public class AudioEffects {
 		return false;
 	}
 	/**
-	 * 
+	 * spielt die Bomb Explosion Geräusche
 	 */
 	public void playBombExplosion() {
 		AudioInputStream audioIn;
