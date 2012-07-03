@@ -56,6 +56,7 @@ public class GameLevel {
 		return null;
 	}
 	
+<<<<<<< HEAD
 	public String readPlayer1Score() {
 
 		try {
@@ -116,11 +117,17 @@ public class GameLevel {
 		return null;
 	}
 
+=======
+>>>>>>> 9c7bde9840243e7a6b2f9e205a159642302c0589
 	/**
 	 * schriebt die aktuelle Status der Spiel und Punkten in GameLevel.xml. 
 	 * @param Status
 	 */
+<<<<<<< HEAD
 	public void writeLevelIntoFile(int level, int player1score, int player2score) {
+=======
+	public void writeLevelIntoFile(int level, int score) {
+>>>>>>> 9c7bde9840243e7a6b2f9e205a159642302c0589
 		File file = new File("GameLevel.xml");
 		FileOutputStream fos = null;
 		try {
@@ -133,11 +140,17 @@ public class GameLevel {
 		xmlBuffer.append("<?xml version=\"1.0\"?><bomberman><level>");
 		xmlBuffer.append(Integer.toString(level));
 		xmlBuffer.append("</level>");
+<<<<<<< HEAD
 		xmlBuffer.append("<player1score>");
 		xmlBuffer.append(Integer.toString(player1score));
 		xmlBuffer.append("</player1score><player2score>");
 		xmlBuffer.append(Integer.toString(player2score));
 		xmlBuffer.append("</player2score></bomberman>");
+=======
+		xmlBuffer.append("<score>");
+		xmlBuffer.append(Integer.toString(score));
+		xmlBuffer.append("</score></bomberman>");
+>>>>>>> 9c7bde9840243e7a6b2f9e205a159642302c0589
 		
 		try {
 			fos.write(xmlBuffer.toString().getBytes());

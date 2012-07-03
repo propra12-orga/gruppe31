@@ -207,6 +207,7 @@ public class BombPosition {
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+<<<<<<< HEAD
 import java.io.FileInputStream;package gruppe31.bomberman;
 
 import javax.swing.JApplet;
@@ -236,6 +237,9 @@ public class SpielApplet extends JApplet {
 	}
 }
 
+=======
+import java.io.FileInputStream;
+>>>>>>> 9c7bde9840243e7a6b2f9e205a159642302c0589
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -302,18 +306,30 @@ public class Spiel extends JFrame implements KeyListener, ActionListener, Serial
 	
 	private JPanel spielStatusPanel = new JPanel();
 	private JLabel networkMode = new JLabel(""); 
+<<<<<<< HEAD
 	private JLabel scoreBoard1 = new JLabel("");
 	private JLabel scoreBoard2 = new JLabel("");
+=======
+	private JLabel scoreBoard = new JLabel("");
+>>>>>>> 9c7bde9840243e7a6b2f9e205a159642302c0589
 	private JLabel playerMode = new JLabel("Single Player");
 	private JLabel gameLevelLabel = new JLabel("");
 	transient AudioEffects audio;
 	private boolean soundOn;
+<<<<<<< HEAD
 	int player1Score;
 	int player2Score;
 	
 	private boolean isServer;
 	private boolean isClient;
 	
+=======
+	private int score;
+	
+	private boolean isServer;
+	private boolean isClient;
+	
+>>>>>>> 9c7bde9840243e7a6b2f9e205a159642302c0589
 	private boolean isPlayer1 = true;
 	private boolean isPlayer2 = true;
 	JMenuBar menuBar;
@@ -342,8 +358,21 @@ public class Spiel extends JFrame implements KeyListener, ActionListener, Serial
 	public void initaliseSpiel(boolean networkPlayer) {
 		//neue GameLevel Objekt wird erzeugt und die aktuelle Game Level wird mittels readCurrentLevel gelesen und in String gepeichert.
 	    //Diese  String wird als Integer umgewandelt und wird für initialisierung der Variable currentLevel benutzt.
+<<<<<<< HEAD
 		
 				
+=======
+		GameLevel reader = new GameLevel();
+		String level = reader.readCurrentLevel();
+		if (level != null) {
+			GameLevel.currentLevel = Integer.parseInt(level);
+			System.out.println("currentLevel: " + GameLevel.currentLevel);
+		} else {
+			GameLevel.currentLevel = 1;
+			System.out.println("currentLevel else: " + GameLevel.currentLevel);
+		}
+		
+>>>>>>> 9c7bde9840243e7a6b2f9e205a159642302c0589
 		createMenu();
 		addKeyListener(this);
 		topPanel = new JPanel();
@@ -353,10 +382,15 @@ public class Spiel extends JFrame implements KeyListener, ActionListener, Serial
 		spielStatusPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 25, 25));
 		spielStatusPanel.add(new JLabel("Spieler:"));
 		spielStatusPanel.add(networkMode);
+<<<<<<< HEAD
 		spielStatusPanel.add(new JLabel("Score (Player1):"));
 		spielStatusPanel.add(scoreBoard1);
 		spielStatusPanel.add(new JLabel("Score (Player2):"));
 		spielStatusPanel.add(scoreBoard2);
+=======
+		spielStatusPanel.add(new JLabel("Score Board:"));
+		spielStatusPanel.add(scoreBoard);
+>>>>>>> 9c7bde9840243e7a6b2f9e205a159642302c0589
 		spielStatusPanel.add(new JLabel("Player Mode:"));
 		spielStatusPanel.add(playerMode);
 		spielStatusPanel.add(new JLabel("Level:"));
@@ -466,7 +500,11 @@ public class Spiel extends JFrame implements KeyListener, ActionListener, Serial
 	 */
 	public void createMenu() {
 		// menuBar wird  erzeugt
+<<<<<<< HEAD
 		menuBar = new JMenuBar();
+=======
+		JMenuBar menuBar = new JMenuBar();
+>>>>>>> 9c7bde9840243e7a6b2f9e205a159642302c0589
 		// menu wird wird erzeugt und in menuBar eingefügt
 		JMenu menu = new JMenu("Menu");
 		menuBar.add(menu);
@@ -561,10 +599,15 @@ public class Spiel extends JFrame implements KeyListener, ActionListener, Serial
 		Spiel x = new Spiel(false);
 		// Spiel ist mit startGame methode gestartet
 		x.startGame();
+<<<<<<< HEAD
 		reader.writeLevelIntoFile(GameLevel.currentLevel, x.player1Score, x.player2Score);
 	}
 	
 	
+=======
+		reader.writeLevelIntoFile(GameLevel.currentLevel, x.score);
+	}
+>>>>>>> 9c7bde9840243e7a6b2f9e205a159642302c0589
 	/**
 	    * überprüft ob die Spieler Position und AusgangstürPosition gleich sind( Reihen und spaltenweise des Arrays) 
 	    * Falls ja, wird die Nachricht "Player 1/2 completed the Level x " mittels JOptionPanel ausgegeben und
@@ -575,10 +618,15 @@ public class Spiel extends JFrame implements KeyListener, ActionListener, Serial
 		System.out.println("ExitDoor X: " + exitPositionX + " ExitDoor Y: " + exitPositionY);
 		if ((player1PositionX == exitPositionX && player1PositionY == exitPositionY)) {
 			JOptionPane.showMessageDialog(this,"Player1 completed the Level " + GameLevel.currentLevel);
+<<<<<<< HEAD
 			this.player1Score = this.player1Score + 500;
 		} else if ((player2PositionX == exitPositionX && player2PositionY == exitPositionY)) {
 			JOptionPane.showMessageDialog(this,"Player2 completed the Level " + GameLevel.currentLevel);
 			this.player2Score = this.player2Score + 500;
+=======
+		} else if ((player2PositionX == exitPositionX && player2PositionY == exitPositionY)) {
+			JOptionPane.showMessageDialog(this,"Player2 completed the Level " + GameLevel.currentLevel);
+>>>>>>> 9c7bde9840243e7a6b2f9e205a159642302c0589
 		}
 		//Falls die Spieler position gleich wie die Ausgangstür Position, wird das Spiel gestartet 
 		if ((player1PositionX == exitPositionX && player1PositionY == exitPositionY) 
@@ -589,6 +637,7 @@ public class Spiel extends JFrame implements KeyListener, ActionListener, Serial
 			//Increment the game level by 1
 			GameLevel reader = new GameLevel();
 			GameLevel.currentLevel = GameLevel.currentLevel + 1;
+<<<<<<< HEAD
 			reader.writeLevelIntoFile(GameLevel.currentLevel, this.player1Score, this.player2Score);
 			spiel.initaliseSpiel(false);
 			
@@ -611,6 +660,10 @@ public class Spiel extends JFrame implements KeyListener, ActionListener, Serial
 			}
 			spiel.scoreBoard2.setText(Integer.toString(this.player2Score));
 
+=======
+			reader.writeLevelIntoFile(GameLevel.currentLevel, this.score);
+			spiel.initaliseSpiel(false);
+>>>>>>> 9c7bde9840243e7a6b2f9e205a159642302c0589
 		}
 
 	}
@@ -631,7 +684,10 @@ public class Spiel extends JFrame implements KeyListener, ActionListener, Serial
 				System.out.println("left key");
 				System.out.println("Current Player Position: " + player1PositionX + "," + player1PositionY);
 				if (player1PositionY >= 1 && isCellFreeFromBricks(player1PositionX, player1PositionY - 1)) {
+<<<<<<< HEAD
 					addScorePlayer1(player1PositionX, player1PositionY - 1);
+=======
+>>>>>>> 9c7bde9840243e7a6b2f9e205a159642302c0589
 					if (player1AndBombIcon.equals(cell[player1PositionX][player1PositionY].getIcon())) {
 						cell[player1PositionX][player1PositionY].setIcon(bombIcon);
 					} else {
@@ -652,7 +708,10 @@ public class Spiel extends JFrame implements KeyListener, ActionListener, Serial
 				System.out.println("right key");
 				System.out.println("Current Player Position: " + player1PositionX + "," + player1PositionY);
 				if (player1PositionY <= 18 && isCellFreeFromBricks(player1PositionX, player1PositionY + 1)) {
+<<<<<<< HEAD
 					addScorePlayer1(player1PositionX, player1PositionY + 1);
+=======
+>>>>>>> 9c7bde9840243e7a6b2f9e205a159642302c0589
 					if (player1AndBombIcon.equals(cell[player1PositionX][player1PositionY].getIcon())) {
 						cell[player1PositionX][player1PositionY].setIcon(bombIcon);
 					} else {
@@ -673,7 +732,10 @@ public class Spiel extends JFrame implements KeyListener, ActionListener, Serial
 				System.out.println("up key");
 				System.out.println("Current Player Position: " + player1PositionX + "," + player1PositionY);
 				if (player1PositionX >= 1 && isCellFreeFromBricks(player1PositionX - 1, player1PositionY)) {
+<<<<<<< HEAD
 					addScorePlayer1(player1PositionX - 1, player1PositionY);
+=======
+>>>>>>> 9c7bde9840243e7a6b2f9e205a159642302c0589
 					if (player1AndBombIcon.equals(cell[player1PositionX][player1PositionY].getIcon())) {
 						cell[player1PositionX][player1PositionY].setIcon(bombIcon);
 					} else {
@@ -689,6 +751,7 @@ public class Spiel extends JFrame implements KeyListener, ActionListener, Serial
 					if (gameServer != null) {
 						gameServer.sendMessage(this);
 					}
+<<<<<<< HEAD
 				}
 			}else if ((keyCode == KeyEvent.VK_DOWN)) {
 				System.out.println("down");
@@ -711,6 +774,29 @@ public class Spiel extends JFrame implements KeyListener, ActionListener, Serial
 						gameServer.sendMessage(this);
 					}
 				}
+=======
+				}
+			}else if ((keyCode == KeyEvent.VK_DOWN)) {
+				System.out.println("down");
+				System.out.println("Current Player Position: " + player1PositionX + "," + player1PositionY);
+				if (player1PositionX <= 18 && isCellFreeFromBricks(player1PositionX + 1, player1PositionY)) {
+					if (player1AndBombIcon.equals(cell[player1PositionX][player1PositionY].getIcon())) {
+						cell[player1PositionX][player1PositionY].setIcon(bombIcon);
+					} else {
+						cell[player1PositionX][player1PositionY].setIcon(null);
+					}
+					player1PositionX++;
+					System.out.println("New Player Position: " + player1PositionX + "," + player1PositionY);
+					if (bombIcon.equals(cell[player1PositionX][player1PositionY].getIcon())) {
+						cell[player1PositionX][player1PositionY].setIcon(player1AndBombIcon);
+					} else {
+						cell[player1PositionX][player1PositionY].setIcon(player1Icon);
+					}
+					if (gameServer != null) {
+						gameServer.sendMessage(this);
+					}
+				}
+>>>>>>> 9c7bde9840243e7a6b2f9e205a159642302c0589
 			} else if (keyCode == KeyEvent.VK_SPACE) {
 				System.out.println("space bar");
 				System.out.println("Bomb Position: " + player1PositionX + "," + player1PositionY);
@@ -736,7 +822,10 @@ public class Spiel extends JFrame implements KeyListener, ActionListener, Serial
 				System.out.println("left key");
 				System.out.println("Current Player2 Position: " + player2PositionX + "," + player2PositionY);
 				if (player2PositionY >= 1 && isCellFreeFromBricks(player2PositionX, player2PositionY - 1)) {
+<<<<<<< HEAD
 					addScorePlayer2(player2PositionX, player2PositionY - 1);
+=======
+>>>>>>> 9c7bde9840243e7a6b2f9e205a159642302c0589
 					if (player2AndBombIcon.equals(cell[player2PositionX][player2PositionY].getIcon())) {
 						cell[player2PositionX][player2PositionY].setIcon(bombIcon);
 					} else {
@@ -757,7 +846,10 @@ public class Spiel extends JFrame implements KeyListener, ActionListener, Serial
 				System.out.println("right key");
 				System.out.println("Current Player2 Position: " + player2PositionX + "," + player2PositionY);
 				if (player2PositionY <= 18 && isCellFreeFromBricks(player2PositionX, player2PositionY + 1)) {
+<<<<<<< HEAD
 					addScorePlayer2(player2PositionX, player2PositionY + 1);
+=======
+>>>>>>> 9c7bde9840243e7a6b2f9e205a159642302c0589
 					if (player2AndBombIcon.equals(cell[player2PositionX][player2PositionY].getIcon())) {
 						cell[player2PositionX][player2PositionY].setIcon(bombIcon);
 					} else {
@@ -779,7 +871,10 @@ public class Spiel extends JFrame implements KeyListener, ActionListener, Serial
 				System.out.println("up key");
 				System.out.println("Current Player2 Position: " + player2PositionX + "," + player2PositionY);
 				if (player2PositionX >= 1 && isCellFreeFromBricks(player2PositionX - 1, player2PositionY)) {
+<<<<<<< HEAD
 					addScorePlayer2(player2PositionX - 1, player2PositionY);
+=======
+>>>>>>> 9c7bde9840243e7a6b2f9e205a159642302c0589
 					if (player2AndBombIcon.equals(cell[player2PositionX][player2PositionY].getIcon())) {
 						cell[player2PositionX][player2PositionY].setIcon(bombIcon);
 					} else {
@@ -801,7 +896,10 @@ public class Spiel extends JFrame implements KeyListener, ActionListener, Serial
 				System.out.println("down");
 				System.out.println("Current Player2 Position: " + player2PositionX + "," + player2PositionY);
 				if (player2PositionX <= 18 && isCellFreeFromBricks(player2PositionX + 1, player2PositionY)) {
+<<<<<<< HEAD
 					addScorePlayer2(player2PositionX + 1, player2PositionY);
+=======
+>>>>>>> 9c7bde9840243e7a6b2f9e205a159642302c0589
 					if (player2AndBombIcon.equals(cell[player2PositionX][player2PositionY].getIcon())) {
 						cell[player2PositionX][player2PositionY].setIcon(bombIcon);
 					} else {
@@ -861,10 +959,17 @@ public class Spiel extends JFrame implements KeyListener, ActionListener, Serial
 			//Spiel status wieder anfangen, weil die Spieler tot ist.
 			GameLevel reader = new GameLevel();
 			GameLevel.currentLevel = 1;
+<<<<<<< HEAD
 			reader.writeLevelIntoFile(GameLevel.currentLevel, this.player1Score, this.player2Score);
 			spiel.initaliseSpiel(false);
 		} else if (e.getActionCommand() != null && e.getActionCommand().equalsIgnoreCase("Multi Player")) {
 			restartGameInMultiPlayerMode(false);
+=======
+			reader.writeLevelIntoFile(GameLevel.currentLevel, this.score);
+			spiel.initaliseSpiel(false);
+		} else if (e.getActionCommand() != null && e.getActionCommand().equalsIgnoreCase("Multi Player")) {
+			restartGameInMultiPlayerMode();
+>>>>>>> 9c7bde9840243e7a6b2f9e205a159642302c0589
 		}else if (e.getActionCommand() != null && e.getActionCommand().equalsIgnoreCase("Search Player 2")) {
 			isServer = true;
 			isPlayer1 = true;
@@ -877,7 +982,11 @@ public class Spiel extends JFrame implements KeyListener, ActionListener, Serial
 		else if (e.getActionCommand() != null && e.getActionCommand().equalsIgnoreCase("Connect To Player 1")) {
 			//Spielfeld wieder initialisieren wenn das Spieler mode nicht multiplayer mode ist.
 			if (!this.isMultiPlayerMode) {
+<<<<<<< HEAD
 				restartGameInMultiPlayerMode(true);
+=======
+				restartGameInMultiPlayerMode();
+>>>>>>> 9c7bde9840243e7a6b2f9e205a159642302c0589
 			} else {
 				//Client initialisiert nur wann die Mode multiplayer mode ist, sonst wird die Initisialiserung der 
 				//gameClient durch restartGameInMultiPlayerMode() gekummert
@@ -898,7 +1007,11 @@ public class Spiel extends JFrame implements KeyListener, ActionListener, Serial
 			//Reset the game level by 1
 			GameLevel reader = new GameLevel();
 			GameLevel.currentLevel = 1;
+<<<<<<< HEAD
 			reader.writeLevelIntoFile(GameLevel.currentLevel, this.player1Score, this.player2Score);
+=======
+			reader.writeLevelIntoFile(GameLevel.currentLevel, this.score);
+>>>>>>> 9c7bde9840243e7a6b2f9e205a159642302c0589
 			spiel.initaliseSpiel(false);
 		} else if (e.getActionCommand() != null && e.getActionCommand().equalsIgnoreCase("Save Game")) {
 			try {
@@ -1047,7 +1160,11 @@ public class Spiel extends JFrame implements KeyListener, ActionListener, Serial
 			//wieder das game level von 1 anfangen, weil spieler tot ist.
 			GameLevel reader = new GameLevel();
 			GameLevel.currentLevel = 1;
+<<<<<<< HEAD
 			reader.writeLevelIntoFile(GameLevel.currentLevel, this.player1Score, this.player2Score);
+=======
+			reader.writeLevelIntoFile(GameLevel.currentLevel, this.score);
+>>>>>>> 9c7bde9840243e7a6b2f9e205a159642302c0589
 			spiel.initaliseSpiel(false);
 		}
 	}
@@ -1079,25 +1196,39 @@ public class Spiel extends JFrame implements KeyListener, ActionListener, Serial
 	/**
 	 * Hier wird das Spiel neue gestartet und die Game Level wieder von 1 angefangen
 	 */
+<<<<<<< HEAD
 	public void restartGameInMultiPlayerMode(boolean startGameClient) {
+=======
+	public void restartGameInMultiPlayerMode() {
+>>>>>>> 9c7bde9840243e7a6b2f9e205a159642302c0589
 		JOptionPane.showMessageDialog(this,"Restarting the Game in Multplayer mode...");
 		this.setVisible(false);
 		spiel = new Spiel(true);
 		//wieder das game level von 1 anfangen, weil spieler tot ist.
 		GameLevel reader = new GameLevel();
 		GameLevel.currentLevel = 1;
+<<<<<<< HEAD
 		reader.writeLevelIntoFile(GameLevel.currentLevel, this.player1Score, this.player2Score);
+=======
+		reader.writeLevelIntoFile(GameLevel.currentLevel, this.score);
+>>>>>>> 9c7bde9840243e7a6b2f9e205a159642302c0589
 		spiel.initaliseSpiel(false);
 		if (gameClient != null) {
 			spiel.gameClient = gameClient;
 			gameClient.spiel = spiel;
 			gameClient.sendMessage(spiel);
 		} else {
+<<<<<<< HEAD
 			if (startGameClient) {
 				gameClient = new BombermanGameClient(spiel);
 				spiel.gameClient = gameClient;
 				gameClient.start();
 			}
+=======
+			gameClient = new BombermanGameClient(spiel);
+			spiel.gameClient = gameClient;
+			gameClient.start();
+>>>>>>> 9c7bde9840243e7a6b2f9e205a159642302c0589
 			//gameClient.sendMessage(spiel);
 		}
 		spiel.isClient = true;
@@ -1181,6 +1312,7 @@ public class Spiel extends JFrame implements KeyListener, ActionListener, Serial
 		if (gameClient != null) {
 			gameClient.close();
 		}
+<<<<<<< HEAD
 	}
 	
 	public void addScorePlayer1(int x, int y) {
@@ -1195,6 +1327,8 @@ public class Spiel extends JFrame implements KeyListener, ActionListener, Serial
 			this.player2Score = this.player2Score + 50;
 			this.scoreBoard2.setText(Integer.toString(this.player2Score));
 		}
+=======
+>>>>>>> 9c7bde9840243e7a6b2f9e205a159642302c0589
 	}
 }
 
