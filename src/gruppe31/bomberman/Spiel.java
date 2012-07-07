@@ -4,11 +4,242 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Frame;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
+import java.awt.event.ActionEvent;package gruppe31.bomberman;
+
+public class BombPosition {
+	package gruppe31.bomberman;
+	ackage gruppe31.bomberman;
+
+	import java.io.File;
+	import java.io.FileNotFoundException;
+	import java.io.FileOutputStream;
+	import java.io.IOException;
+
+	import javax.xml.parsers.DocumentBuilder;
+	import javax.xml.parsers.DocumentBuilderFactory;
+
+	import org.w3c.dom.Document;
+	import org.w3c.dom.Element;
+	import org.w3c.dom.Node;
+	import org.w3c.dom.NodeList;
+	/**
+	 * 
+	 * @author gruppe 31 - bomberman
+	 * Diese Klasse hat methode, die die aktuelle Status der Spiel und Punkten vom xml Datei einliest 
+	 * und in xml Datei einschreibt.
+	 *
+	 */
+	public class GameLevel {
+
+		public static int currentLevel = 0;
+		/**
+		 * liest die aktuelle Status der Spiel von GameLevel.xml ein
+		 * @return the Spiel Status
+		 */
+		public String readCurrentLevel() {
+
+			try {
+				File file = new File("GameLevel.xml");
+				if (file == null) {
+					return null;
+				}
+				DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+				DocumentBuilder db = dbf.newDocumentBuilder();
+				Document doc = db.parse(file);
+				doc.getDocumentElement().normalize();
+				NodeList nodeLst = doc.getElementsByTagName("bomberman");
+				
+				Node fstNode = nodeLst.item(0);
+
+					if (fstNode.getNodeType() == Node.ELEMENT_NODE) {
+
+						Element fstElmnt = (Element) fstNode;
+						NodeList fstNmElmntLst = fstElmnt.getElementsByTagName("level");
+						Element fstNmElmnt = (Element) fstNmElmntLst.item(0);
+						NodeList fstNm = fstNmElmnt.getChildNodes();
+						return ((Node) fstNm.item(0)).getNodeValue();
+						//System.out.println("First Name : "  + ((Node) fstNm.item(0)).getNodeValue());
+					}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return null;
+		}
+		
+		public String readPlayer1Score() {
+
+			try {
+				File file = new File("GameLevel.xml");
+				if (file == null) {
+					return null;
+				}
+				DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+				DocumentBuilder db = dbf.newDocumentBuilder();
+				Document doc = db.parse(file);
+				doc.getDocumentElement().normalize();
+				NodeList nodeLst = doc.getElementsByTagName("bomberman");
+				
+				Node fstNode = nodeLst.item(0);
+
+					if (fstNode.getNodeType() == Node.ELEMENT_NODE) {
+
+						Element fstElmnt = (Element) fstNode;
+						NodeList fstNmElmntLst = fstElmnt.getElementsByTagName("player1score");
+						Element fstNmElmnt = (Element) fstNmElmntLst.item(0);
+						NodeList fstNm = fstNmElmnt.getChildNodes();
+						return ((Node) fstNm.item(0)).getNodeValue();
+						//System.out.println("First Name : "  + ((Node) fstNm.item(0)).getNodeValue());
+					}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return null;
+		}
+
+		public String readPlayer2Score() {
+
+			try {
+				File file = new File("GameLevel.xml");
+				if (file == null) {
+					return null;
+				}
+				DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+				DocumentBuilder db = dbf.newDocumentBuilder();
+				Document doc = db.parse(file);
+				doc.getDocumentElement().normalize();
+				NodeList nodeLst = doc.getElementsByTagName("bomberman");
+				
+				Node fstNode = nodeLst.item(0);
+
+					if (fstNode.getNodeType() == Node.ELEMENT_NODE) {
+
+						Element fstElmnt = (Element) fstNode;
+						NodeList fstNmElmntLst = fstElmnt.getElementsByTagName("player1score");
+						Element fstNmElmnt = (Element) fstNmElmntLst.item(0);
+						NodeList fstNm = fstNmElmnt.getChildNodes();
+						return ((Node) fstNm.item(0)).getNodeValue();
+						//System.out.println("First Name : "  + ((Node) fstNm.item(0)).getNodeValue());
+					}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return null;
+		}
+
+		/**
+		 * schriebt die aktuelle Status der Spiel und Punkten in GameLevel.xml. 
+		 * @param Status
+		 */
+		public void writeLevelIntoFile(int level, int player1score, int player2score) {
+			File file = new File("GameLevel.xml");
+			FileOutputStream fos = null;
+			try {
+				fos = new FileOutputStream(file);
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			StringBuffer xmlBuffer = new StringBuffer();
+			xmlBuffer.append("<?xml version=\"1.0\"?><bomberman><level>");
+			xmlBuffer.append(Integer.toString(level));
+			xmlBuffer.append("</level>");
+			xmlBuffer.append("<player1score>");
+			xmlBuffer.append(Integer.toString(player1score));
+			xmlBuffer.append("</player1score><player2score>");
+			xmlBuffer.append(Integer.toString(player2score));
+			xmlBuffer.append("</player2score></bomberman>");
+			
+			try {
+				fos.write(xmlBuffer.toString().getBytes());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				try {
+					fos.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		
+	}
+
+	public class BombPosition {
+
+		private int positionX;
+		private int positionY;
+		
+		
+		public int getPositionX() {
+			return positionX;
+		}
+		public void setPositionX(int positionX) {
+			this.positionX = positionX;
+		}
+		public int getPositionY() {
+			return positionY;
+		}
+		public void setPositionY(int positionY) {
+			this.positionY = positionY;
+		}
+	}
+
+	private int positionX;
+	private int positionY;
+	
+	
+	public int getPositionX() {
+		return positionX;
+	}
+	public void setPositionX(int positionX) {
+		this.positionX = positionX;
+	}
+	public int getPositionY() {
+		return positionY;
+	}
+	public void setPositionY(int positionY) {
+		this.positionY = positionY;
+	}
+}
+
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+<<<<<<< HEAD
+import java.io.FileInputStream;package gruppe31.bomberman;
+
+import javax.swing.JApplet;
+import javax.swing.SwingUtilities;
+
+public class SpielApplet extends JApplet {
+
+	public void init() {
+		try {
+
+			SwingUtilities.invokeAndWait(new Runnable() {
+				public void run() {
+
+					GameLevel reader = new GameLevel();
+					GameLevel.currentLevel = 1;
+					Spiel x = new Spiel(false);
+					// Spiel ist mit startGame methode gestartet
+					x.startGame();
+					reader.writeLevelIntoFile(GameLevel.currentLevel, x.player1Score, x.player2Score);
+
+				}
+			});
+
+		} catch (Exception ex) {
+
+		}
+	}
+}
+
+=======
 import java.io.FileInputStream;
+>>>>>>> 9c7bde9840243e7a6b2f9e205a159642302c0589
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -20,6 +251,7 @@ import java.util.List;
 import java.util.Random;
 
 import javax.swing.ImageIcon;
+import javax.swing.JApplet;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -74,16 +306,30 @@ public class Spiel extends JFrame implements KeyListener, ActionListener, Serial
 	
 	private JPanel spielStatusPanel = new JPanel();
 	private JLabel networkMode = new JLabel(""); 
+<<<<<<< HEAD
+	private JLabel scoreBoard1 = new JLabel("");
+	private JLabel scoreBoard2 = new JLabel("");
+=======
 	private JLabel scoreBoard = new JLabel("");
+>>>>>>> 9c7bde9840243e7a6b2f9e205a159642302c0589
 	private JLabel playerMode = new JLabel("Single Player");
 	private JLabel gameLevelLabel = new JLabel("");
 	transient AudioEffects audio;
 	private boolean soundOn;
+<<<<<<< HEAD
+	int player1Score;
+	int player2Score;
+	
+	private boolean isServer;
+	private boolean isClient;
+	
+=======
 	private int score;
 	
 	private boolean isServer;
 	private boolean isClient;
 	
+>>>>>>> 9c7bde9840243e7a6b2f9e205a159642302c0589
 	private boolean isPlayer1 = true;
 	private boolean isPlayer2 = true;
 	JMenuBar menuBar;
@@ -112,6 +358,10 @@ public class Spiel extends JFrame implements KeyListener, ActionListener, Serial
 	public void initaliseSpiel(boolean networkPlayer) {
 		//neue GameLevel Objekt wird erzeugt und die aktuelle Game Level wird mittels readCurrentLevel gelesen und in String gepeichert.
 	    //Diese  String wird als Integer umgewandelt und wird für initialisierung der Variable currentLevel benutzt.
+<<<<<<< HEAD
+		
+				
+=======
 		GameLevel reader = new GameLevel();
 		String level = reader.readCurrentLevel();
 		if (level != null) {
@@ -122,6 +372,7 @@ public class Spiel extends JFrame implements KeyListener, ActionListener, Serial
 			System.out.println("currentLevel else: " + GameLevel.currentLevel);
 		}
 		
+>>>>>>> 9c7bde9840243e7a6b2f9e205a159642302c0589
 		createMenu();
 		addKeyListener(this);
 		topPanel = new JPanel();
@@ -131,8 +382,15 @@ public class Spiel extends JFrame implements KeyListener, ActionListener, Serial
 		spielStatusPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 25, 25));
 		spielStatusPanel.add(new JLabel("Spieler:"));
 		spielStatusPanel.add(networkMode);
+<<<<<<< HEAD
+		spielStatusPanel.add(new JLabel("Score (Player1):"));
+		spielStatusPanel.add(scoreBoard1);
+		spielStatusPanel.add(new JLabel("Score (Player2):"));
+		spielStatusPanel.add(scoreBoard2);
+=======
 		spielStatusPanel.add(new JLabel("Score Board:"));
 		spielStatusPanel.add(scoreBoard);
+>>>>>>> 9c7bde9840243e7a6b2f9e205a159642302c0589
 		spielStatusPanel.add(new JLabel("Player Mode:"));
 		spielStatusPanel.add(playerMode);
 		spielStatusPanel.add(new JLabel("Level:"));
@@ -242,7 +500,11 @@ public class Spiel extends JFrame implements KeyListener, ActionListener, Serial
 	 */
 	public void createMenu() {
 		// menuBar wird  erzeugt
+<<<<<<< HEAD
+		menuBar = new JMenuBar();
+=======
 		JMenuBar menuBar = new JMenuBar();
+>>>>>>> 9c7bde9840243e7a6b2f9e205a159642302c0589
 		// menu wird wird erzeugt und in menuBar eingefügt
 		JMenu menu = new JMenu("Menu");
 		menuBar.add(menu);
@@ -337,8 +599,15 @@ public class Spiel extends JFrame implements KeyListener, ActionListener, Serial
 		Spiel x = new Spiel(false);
 		// Spiel ist mit startGame methode gestartet
 		x.startGame();
+<<<<<<< HEAD
+		reader.writeLevelIntoFile(GameLevel.currentLevel, x.player1Score, x.player2Score);
+	}
+	
+	
+=======
 		reader.writeLevelIntoFile(GameLevel.currentLevel, x.score);
 	}
+>>>>>>> 9c7bde9840243e7a6b2f9e205a159642302c0589
 	/**
 	    * überprüft ob die Spieler Position und AusgangstürPosition gleich sind( Reihen und spaltenweise des Arrays) 
 	    * Falls ja, wird die Nachricht "Player 1/2 completed the Level x " mittels JOptionPanel ausgegeben und
@@ -349,8 +618,15 @@ public class Spiel extends JFrame implements KeyListener, ActionListener, Serial
 		System.out.println("ExitDoor X: " + exitPositionX + " ExitDoor Y: " + exitPositionY);
 		if ((player1PositionX == exitPositionX && player1PositionY == exitPositionY)) {
 			JOptionPane.showMessageDialog(this,"Player1 completed the Level " + GameLevel.currentLevel);
+<<<<<<< HEAD
+			this.player1Score = this.player1Score + 500;
 		} else if ((player2PositionX == exitPositionX && player2PositionY == exitPositionY)) {
 			JOptionPane.showMessageDialog(this,"Player2 completed the Level " + GameLevel.currentLevel);
+			this.player2Score = this.player2Score + 500;
+=======
+		} else if ((player2PositionX == exitPositionX && player2PositionY == exitPositionY)) {
+			JOptionPane.showMessageDialog(this,"Player2 completed the Level " + GameLevel.currentLevel);
+>>>>>>> 9c7bde9840243e7a6b2f9e205a159642302c0589
 		}
 		//Falls die Spieler position gleich wie die Ausgangstür Position, wird das Spiel gestartet 
 		if ((player1PositionX == exitPositionX && player1PositionY == exitPositionY) 
@@ -361,8 +637,33 @@ public class Spiel extends JFrame implements KeyListener, ActionListener, Serial
 			//Increment the game level by 1
 			GameLevel reader = new GameLevel();
 			GameLevel.currentLevel = GameLevel.currentLevel + 1;
+<<<<<<< HEAD
+			reader.writeLevelIntoFile(GameLevel.currentLevel, this.player1Score, this.player2Score);
+			spiel.initaliseSpiel(false);
+			
+			String level = reader.readCurrentLevel();
+			if (level != null) {
+				GameLevel.currentLevel = Integer.parseInt(level);
+				System.out.println("currentLevel: " + GameLevel.currentLevel);
+			} else {
+				GameLevel.currentLevel = 1;
+				System.out.println("currentLevel else: " + GameLevel.currentLevel);
+			}
+			String player1Score = reader.readPlayer1Score();
+			if (player1Score != null) {
+				spiel.player1Score = Integer.parseInt(player1Score);
+			}
+			spiel.scoreBoard1.setText(Integer.toString(this.player1Score));
+			String player2Score = reader.readPlayer2Score();
+			if (player2Score != null) {
+				spiel.player2Score = Integer.parseInt(player2Score);
+			}
+			spiel.scoreBoard2.setText(Integer.toString(this.player2Score));
+
+=======
 			reader.writeLevelIntoFile(GameLevel.currentLevel, this.score);
 			spiel.initaliseSpiel(false);
+>>>>>>> 9c7bde9840243e7a6b2f9e205a159642302c0589
 		}
 
 	}
@@ -383,6 +684,10 @@ public class Spiel extends JFrame implements KeyListener, ActionListener, Serial
 				System.out.println("left key");
 				System.out.println("Current Player Position: " + player1PositionX + "," + player1PositionY);
 				if (player1PositionY >= 1 && isCellFreeFromBricks(player1PositionX, player1PositionY - 1)) {
+<<<<<<< HEAD
+					addScorePlayer1(player1PositionX, player1PositionY - 1);
+=======
+>>>>>>> 9c7bde9840243e7a6b2f9e205a159642302c0589
 					if (player1AndBombIcon.equals(cell[player1PositionX][player1PositionY].getIcon())) {
 						cell[player1PositionX][player1PositionY].setIcon(bombIcon);
 					} else {
@@ -403,6 +708,10 @@ public class Spiel extends JFrame implements KeyListener, ActionListener, Serial
 				System.out.println("right key");
 				System.out.println("Current Player Position: " + player1PositionX + "," + player1PositionY);
 				if (player1PositionY <= 18 && isCellFreeFromBricks(player1PositionX, player1PositionY + 1)) {
+<<<<<<< HEAD
+					addScorePlayer1(player1PositionX, player1PositionY + 1);
+=======
+>>>>>>> 9c7bde9840243e7a6b2f9e205a159642302c0589
 					if (player1AndBombIcon.equals(cell[player1PositionX][player1PositionY].getIcon())) {
 						cell[player1PositionX][player1PositionY].setIcon(bombIcon);
 					} else {
@@ -423,6 +732,10 @@ public class Spiel extends JFrame implements KeyListener, ActionListener, Serial
 				System.out.println("up key");
 				System.out.println("Current Player Position: " + player1PositionX + "," + player1PositionY);
 				if (player1PositionX >= 1 && isCellFreeFromBricks(player1PositionX - 1, player1PositionY)) {
+<<<<<<< HEAD
+					addScorePlayer1(player1PositionX - 1, player1PositionY);
+=======
+>>>>>>> 9c7bde9840243e7a6b2f9e205a159642302c0589
 					if (player1AndBombIcon.equals(cell[player1PositionX][player1PositionY].getIcon())) {
 						cell[player1PositionX][player1PositionY].setIcon(bombIcon);
 					} else {
@@ -438,6 +751,30 @@ public class Spiel extends JFrame implements KeyListener, ActionListener, Serial
 					if (gameServer != null) {
 						gameServer.sendMessage(this);
 					}
+<<<<<<< HEAD
+				}
+			}else if ((keyCode == KeyEvent.VK_DOWN)) {
+				System.out.println("down");
+				System.out.println("Current Player Position: " + player1PositionX + "," + player1PositionY);
+				if (player1PositionX <= 18 && isCellFreeFromBricks(player1PositionX + 1, player1PositionY)) {
+					addScorePlayer1(player1PositionX + 1, player1PositionY);
+					if (player1AndBombIcon.equals(cell[player1PositionX][player1PositionY].getIcon())) {
+						cell[player1PositionX][player1PositionY].setIcon(bombIcon);
+					} else {
+						cell[player1PositionX][player1PositionY].setIcon(null);
+					}
+					player1PositionX++;
+					System.out.println("New Player Position: " + player1PositionX + "," + player1PositionY);
+					if (bombIcon.equals(cell[player1PositionX][player1PositionY].getIcon())) {
+						cell[player1PositionX][player1PositionY].setIcon(player1AndBombIcon);
+					} else {
+						cell[player1PositionX][player1PositionY].setIcon(player1Icon);
+					}
+					if (gameServer != null) {
+						gameServer.sendMessage(this);
+					}
+				}
+=======
 				}
 			}else if ((keyCode == KeyEvent.VK_DOWN)) {
 				System.out.println("down");
@@ -459,6 +796,7 @@ public class Spiel extends JFrame implements KeyListener, ActionListener, Serial
 						gameServer.sendMessage(this);
 					}
 				}
+>>>>>>> 9c7bde9840243e7a6b2f9e205a159642302c0589
 			} else if (keyCode == KeyEvent.VK_SPACE) {
 				System.out.println("space bar");
 				System.out.println("Bomb Position: " + player1PositionX + "," + player1PositionY);
@@ -484,6 +822,10 @@ public class Spiel extends JFrame implements KeyListener, ActionListener, Serial
 				System.out.println("left key");
 				System.out.println("Current Player2 Position: " + player2PositionX + "," + player2PositionY);
 				if (player2PositionY >= 1 && isCellFreeFromBricks(player2PositionX, player2PositionY - 1)) {
+<<<<<<< HEAD
+					addScorePlayer2(player2PositionX, player2PositionY - 1);
+=======
+>>>>>>> 9c7bde9840243e7a6b2f9e205a159642302c0589
 					if (player2AndBombIcon.equals(cell[player2PositionX][player2PositionY].getIcon())) {
 						cell[player2PositionX][player2PositionY].setIcon(bombIcon);
 					} else {
@@ -504,6 +846,10 @@ public class Spiel extends JFrame implements KeyListener, ActionListener, Serial
 				System.out.println("right key");
 				System.out.println("Current Player2 Position: " + player2PositionX + "," + player2PositionY);
 				if (player2PositionY <= 18 && isCellFreeFromBricks(player2PositionX, player2PositionY + 1)) {
+<<<<<<< HEAD
+					addScorePlayer2(player2PositionX, player2PositionY + 1);
+=======
+>>>>>>> 9c7bde9840243e7a6b2f9e205a159642302c0589
 					if (player2AndBombIcon.equals(cell[player2PositionX][player2PositionY].getIcon())) {
 						cell[player2PositionX][player2PositionY].setIcon(bombIcon);
 					} else {
@@ -525,6 +871,10 @@ public class Spiel extends JFrame implements KeyListener, ActionListener, Serial
 				System.out.println("up key");
 				System.out.println("Current Player2 Position: " + player2PositionX + "," + player2PositionY);
 				if (player2PositionX >= 1 && isCellFreeFromBricks(player2PositionX - 1, player2PositionY)) {
+<<<<<<< HEAD
+					addScorePlayer2(player2PositionX - 1, player2PositionY);
+=======
+>>>>>>> 9c7bde9840243e7a6b2f9e205a159642302c0589
 					if (player2AndBombIcon.equals(cell[player2PositionX][player2PositionY].getIcon())) {
 						cell[player2PositionX][player2PositionY].setIcon(bombIcon);
 					} else {
@@ -546,6 +896,10 @@ public class Spiel extends JFrame implements KeyListener, ActionListener, Serial
 				System.out.println("down");
 				System.out.println("Current Player2 Position: " + player2PositionX + "," + player2PositionY);
 				if (player2PositionX <= 18 && isCellFreeFromBricks(player2PositionX + 1, player2PositionY)) {
+<<<<<<< HEAD
+					addScorePlayer2(player2PositionX + 1, player2PositionY);
+=======
+>>>>>>> 9c7bde9840243e7a6b2f9e205a159642302c0589
 					if (player2AndBombIcon.equals(cell[player2PositionX][player2PositionY].getIcon())) {
 						cell[player2PositionX][player2PositionY].setIcon(bombIcon);
 					} else {
@@ -605,10 +959,17 @@ public class Spiel extends JFrame implements KeyListener, ActionListener, Serial
 			//Spiel status wieder anfangen, weil die Spieler tot ist.
 			GameLevel reader = new GameLevel();
 			GameLevel.currentLevel = 1;
+<<<<<<< HEAD
+			reader.writeLevelIntoFile(GameLevel.currentLevel, this.player1Score, this.player2Score);
+			spiel.initaliseSpiel(false);
+		} else if (e.getActionCommand() != null && e.getActionCommand().equalsIgnoreCase("Multi Player")) {
+			restartGameInMultiPlayerMode(false);
+=======
 			reader.writeLevelIntoFile(GameLevel.currentLevel, this.score);
 			spiel.initaliseSpiel(false);
 		} else if (e.getActionCommand() != null && e.getActionCommand().equalsIgnoreCase("Multi Player")) {
 			restartGameInMultiPlayerMode();
+>>>>>>> 9c7bde9840243e7a6b2f9e205a159642302c0589
 		}else if (e.getActionCommand() != null && e.getActionCommand().equalsIgnoreCase("Search Player 2")) {
 			isServer = true;
 			isPlayer1 = true;
@@ -621,7 +982,11 @@ public class Spiel extends JFrame implements KeyListener, ActionListener, Serial
 		else if (e.getActionCommand() != null && e.getActionCommand().equalsIgnoreCase("Connect To Player 1")) {
 			//Spielfeld wieder initialisieren wenn das Spieler mode nicht multiplayer mode ist.
 			if (!this.isMultiPlayerMode) {
+<<<<<<< HEAD
+				restartGameInMultiPlayerMode(true);
+=======
 				restartGameInMultiPlayerMode();
+>>>>>>> 9c7bde9840243e7a6b2f9e205a159642302c0589
 			} else {
 				//Client initialisiert nur wann die Mode multiplayer mode ist, sonst wird die Initisialiserung der 
 				//gameClient durch restartGameInMultiPlayerMode() gekummert
@@ -642,7 +1007,11 @@ public class Spiel extends JFrame implements KeyListener, ActionListener, Serial
 			//Reset the game level by 1
 			GameLevel reader = new GameLevel();
 			GameLevel.currentLevel = 1;
+<<<<<<< HEAD
+			reader.writeLevelIntoFile(GameLevel.currentLevel, this.player1Score, this.player2Score);
+=======
 			reader.writeLevelIntoFile(GameLevel.currentLevel, this.score);
+>>>>>>> 9c7bde9840243e7a6b2f9e205a159642302c0589
 			spiel.initaliseSpiel(false);
 		} else if (e.getActionCommand() != null && e.getActionCommand().equalsIgnoreCase("Save Game")) {
 			try {
@@ -791,7 +1160,11 @@ public class Spiel extends JFrame implements KeyListener, ActionListener, Serial
 			//wieder das game level von 1 anfangen, weil spieler tot ist.
 			GameLevel reader = new GameLevel();
 			GameLevel.currentLevel = 1;
+<<<<<<< HEAD
+			reader.writeLevelIntoFile(GameLevel.currentLevel, this.player1Score, this.player2Score);
+=======
 			reader.writeLevelIntoFile(GameLevel.currentLevel, this.score);
+>>>>>>> 9c7bde9840243e7a6b2f9e205a159642302c0589
 			spiel.initaliseSpiel(false);
 		}
 	}
@@ -823,23 +1196,39 @@ public class Spiel extends JFrame implements KeyListener, ActionListener, Serial
 	/**
 	 * Hier wird das Spiel neue gestartet und die Game Level wieder von 1 angefangen
 	 */
+<<<<<<< HEAD
+	public void restartGameInMultiPlayerMode(boolean startGameClient) {
+=======
 	public void restartGameInMultiPlayerMode() {
+>>>>>>> 9c7bde9840243e7a6b2f9e205a159642302c0589
 		JOptionPane.showMessageDialog(this,"Restarting the Game in Multplayer mode...");
 		this.setVisible(false);
 		spiel = new Spiel(true);
 		//wieder das game level von 1 anfangen, weil spieler tot ist.
 		GameLevel reader = new GameLevel();
 		GameLevel.currentLevel = 1;
+<<<<<<< HEAD
+		reader.writeLevelIntoFile(GameLevel.currentLevel, this.player1Score, this.player2Score);
+=======
 		reader.writeLevelIntoFile(GameLevel.currentLevel, this.score);
+>>>>>>> 9c7bde9840243e7a6b2f9e205a159642302c0589
 		spiel.initaliseSpiel(false);
 		if (gameClient != null) {
 			spiel.gameClient = gameClient;
 			gameClient.spiel = spiel;
 			gameClient.sendMessage(spiel);
 		} else {
+<<<<<<< HEAD
+			if (startGameClient) {
+				gameClient = new BombermanGameClient(spiel);
+				spiel.gameClient = gameClient;
+				gameClient.start();
+			}
+=======
 			gameClient = new BombermanGameClient(spiel);
 			spiel.gameClient = gameClient;
 			gameClient.start();
+>>>>>>> 9c7bde9840243e7a6b2f9e205a159642302c0589
 			//gameClient.sendMessage(spiel);
 		}
 		spiel.isClient = true;
@@ -923,6 +1312,23 @@ public class Spiel extends JFrame implements KeyListener, ActionListener, Serial
 		if (gameClient != null) {
 			gameClient.close();
 		}
+<<<<<<< HEAD
+	}
+	
+	public void addScorePlayer1(int x, int y) {
+		if (giftBoxIcon.equals(cell[x][y].getIcon())) {
+			this.player1Score = this.player1Score + 50;
+			this.scoreBoard1.setText(Integer.toString(this.player1Score));
+		}
+	}
+	
+	public void addScorePlayer2(int x, int y) {
+		if (giftBoxIcon.equals(cell[x][y].getIcon())) {
+			this.player2Score = this.player2Score + 50;
+			this.scoreBoard2.setText(Integer.toString(this.player2Score));
+		}
+=======
+>>>>>>> 9c7bde9840243e7a6b2f9e205a159642302c0589
 	}
 }
 
